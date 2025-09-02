@@ -1,3 +1,5 @@
+#pragma once
+
 #include <openssl/evp.h>
 #include <openssl/md5.h>
 

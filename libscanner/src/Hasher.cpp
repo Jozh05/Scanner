@@ -1,4 +1,4 @@
-#include "../include/Hasher.hpp"
+#include "scanner/Hasher.hpp"
 
 #include <stdexcept>
 #include <sstream>

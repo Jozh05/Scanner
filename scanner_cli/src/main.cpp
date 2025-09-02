@@ -1,4 +1,5 @@
-#include <Hasher.hpp>
+#include <scanner/Hasher.hpp>
+
 #include <filesystem>
 #include <iostream>
 
