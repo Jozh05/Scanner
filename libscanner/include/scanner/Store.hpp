@@ -30,10 +30,6 @@ public:
         return data_.size();
     }
 
-    const std::unordered_map<std::string, std::string>& data() {
-        return data_;
-    }
-
 private:
     
     static bool is_hex32(std::string_view str) noexcept;

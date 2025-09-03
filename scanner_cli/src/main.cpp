@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+/*
 int main(int argc, char** argv) {
     if (argc != 2) {
         std::cerr << "Usage: " << (argc ? argv[0] : "scanner_cli") << " <base.csv>\n";
@@ -43,3 +44,4 @@ int main(int argc, char** argv) {
         return 1;
     }
 }
+*/
