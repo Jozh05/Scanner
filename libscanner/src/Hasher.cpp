@@ -1,11 +1,15 @@
 #include "scanner/Hasher.hpp"
 
+#include <openssl/evp.h>
+#include <openssl/md5.h>
+
 #include <stdexcept>
 #include <sstream>
 #include <iomanip>
 #include <fstream>
 #include <vector>
 
+namespace scanner {
 
 Hasher::Hasher(size_t chunk_size) : chunk_size_(chunk_size ? chunk_size : (1u << 20)) {
     ctx_ = EVP_MD_CTX_new();
@@ -115,3 +119,5 @@ std::string Hasher::to_hex(const unsigned char* data, size_t len) {
         oss << std::setw(2) << static_cast<int>(data[i]);
     return oss.str();
 }
+
+} // namespace scanner

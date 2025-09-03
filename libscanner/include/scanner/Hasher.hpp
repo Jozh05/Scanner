@@ -8,6 +8,8 @@
 #include <string>
 #include <filesystem>
 
+namespace scanner {
+
 class Hasher {
 
 public:
@@ -45,3 +47,5 @@ private:
     std::size_t chunk_size_;
     bool inited_ = false;
 };
+
+} //namespace scanner
