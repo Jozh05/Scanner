@@ -1,5 +1,7 @@
 #include "scanner/Store.hpp"
 
+#include <rapidcsv.h>
+
 #include <vector>
 
 

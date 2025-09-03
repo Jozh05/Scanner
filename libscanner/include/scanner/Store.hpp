@@ -7,7 +7,7 @@
 #include <string_view>
 #include <unordered_map>
 
-#include <rapidcsv.h>
+
 
 namespace scanner {
 

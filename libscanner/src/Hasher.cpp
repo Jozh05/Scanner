@@ -1,8 +1,5 @@
 #include "scanner/Hasher.hpp"
 
-#include <openssl/evp.h>
-#include <openssl/md5.h>
-
 #include <stdexcept>
 #include <sstream>
 #include <iomanip>
