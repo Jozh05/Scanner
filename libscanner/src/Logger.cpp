@@ -5,7 +5,7 @@
 namespace scanner {
     
     Logger::Logger(const std::filesystem::path& file) {
-        out_.open(file, std::ios::out | std::ios::app);
+        out_.open(file, std::ios::out | std::ios::trunc);
         if (!out_)
             throw std::runtime_error("cannot open log file: " + file.generic_string());
     }

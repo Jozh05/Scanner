@@ -1,7 +1,7 @@
 
 find_package(OpenSSL REQUIRED)
 
-add_library(scanner SHARED src/Hasher.cpp src/Store.cpp)
+add_library(scanner SHARED src/Hasher.cpp src/Store.cpp src/detail/Producer.cpp src/Logger.cpp)
 
 find_path(RAPIDCSV_INCLUDE_DIRS "rapidcsv.h")
 target_include_directories(scanner PRIVATE ${RAPIDCSV_INCLUDE_DIRS})

@@ -23,7 +23,7 @@ public:
 
     bool pop(T& out) {
         std::unique_lock<std::mutex> lock(mtx_);
-        not_empty_.wait(lock, [&] {return closed_ || !queue.empty();});
+        not_empty_.wait(lock, [&] {return closed_ || !queue_.empty();});
         
         if (queue_.empty())
             return false;
@@ -35,7 +35,7 @@ public:
     }
 
     void close() {
-        std::lock_guard<std::mutex>(mtx_);
+        std::lock_guard lock(mtx_);
         closed_ = true;
         not_empty_.notify_all();
         not_full_.notify_all();

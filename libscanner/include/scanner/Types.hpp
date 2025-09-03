@@ -18,5 +18,6 @@ namespace scanner {
         std::atomic<std::uint64_t> files = 0;
         std::atomic<std::uint64_t> malicious = 0;
         std::atomic<std::uint64_t> errors = 0;
+        void on_error() {++errors;}
     };
 } // namespace scanner

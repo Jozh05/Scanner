@@ -7,6 +7,10 @@
 #include <string>
 #include <vector>
 
+int main () {
+    return 0;
+}
+
 /*
 int main(int argc, char** argv) {
     if (argc != 2) {
