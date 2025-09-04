@@ -49,6 +49,7 @@ namespace cli {
                     opt.log_path = std::string(take_value(i, argc, argv, err, arg));
                 } else if (arg == "-h" || arg == "--help") {
                     print_usage(std::cout, argv[0]);
+                    std::exit(0);
                 } else if (!arg.empty() && arg[0] == '-') {
                     err << "unknown flag: " << arg << "\n";
                     return std::nullopt;
@@ -69,6 +70,10 @@ namespace cli {
             err << "--path is required\n";
             return std::nullopt;
         }
+        opt.base_csv = std::filesystem::absolute(opt.base_csv);
+        opt.root_path = std::filesystem::absolute(opt.root_path);
+        if (opt.log_path.has_value())
+            opt.log_path = std::filesystem::absolute(opt.log_path.value());
         return opt;
     }
 } // namespace cli

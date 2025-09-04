@@ -1,51 +1,15 @@
-#include <scanner/Store.hpp>
-
-
-#include <algorithm>
-#include <filesystem>
+#include "cli/Parser.hpp"
+#include "cli/App.hpp"
 #include <iostream>
-#include <string>
-#include <vector>
 
-int main () {
-    return 0;
-}
 
-/*
-int main(int argc, char** argv) {
-    if (argc != 2) {
-        std::cerr << "Usage: " << (argc ? argv[0] : "scanner_cli") << " <base.csv>\n";
-        return 2;
+int main (int argc, char** argv) {
+    
+    auto opts = cli::Parser::parse(argc, argv, std::cerr);
+    if (!opts) {
+        cli::Parser::print_usage(std::cerr, argv[0]);
+        return 3;
     }
-
-    try {
-        const std::filesystem::path csvPath = argv[1];
-
-        scanner::Store store;
-        store.load(csvPath);  // по умолчанию DuplicatePolicy::ErrorOnConflict
-
-        // Соберём все ключи (MD5) и отсортируем для стабильного вывода.
-        std::vector<std::string> keys;
-        keys.reserve(store.size());
-        for (const auto& kv : store.data()) {    // data() — const ref к внутренней карте
-            keys.push_back(kv.first);
-        }
-        std::sort(keys.begin(), keys.end());
-
-        // Печатаем через get(), как просили: md5;verdict
-        for (const auto& md5 : keys) {
-            if (auto verdict = store.get(md5)) {
-                std::cout << md5 << ';' << *verdict << '\n';
-            } else {
-                // Теоретически не должно случиться, но на всякий оставим защиту
-                std::cerr << "[WARN] missing verdict for key: " << md5 << '\n';
-            }
-        }
-
-        return 0;
-    } catch (const std::exception& ex) {
-        std::cerr << "Error: " << ex.what() << '\n';
-        return 1;
-    }
+    cli::App app(opts.value());
+    return app.run();
 }
-*/

@@ -17,14 +17,40 @@ namespace cli {
 
     std::ostream& App::print_stats(std::ostream& os,
         const scanner::ScanStats& stats,
-        const int64_t time) const {
+        std::chrono::milliseconds elapsed) const {
         os << "Base:   " << opts_.base_csv << "\n"
                   << "Path:   " << opts_.root_path << "\n";
         if (opts_.log_path) os << "Log:    " << opts_.log_path.value() << "\n";
-        std::cout << "Files:  " << stats.files.load() << "\n"
+        os << "Files:  " << stats.files.load() << "\n"
                   << "Hits:   " << stats.malicious.load() << "\n"
                   << "Errors: " << stats.errors.load() << "\n"
-                  << "Time:   " << time << " ms\n";
+                  << "Time:   ";
+        print_duration(os, elapsed);
+        os << "\n";
+        return os;
+    }
+
+    void App::print_duration(std::ostream& os, std::chrono::milliseconds ms) {
+        auto total_ms = ms.count();
+        auto minutes  = total_ms / 60'000;
+        total_ms     %= 60'000;
+        auto seconds  = total_ms / 1'000;
+        auto millis   = total_ms % 1'000;
+
+        bool wrote = false;
+        if (minutes > 0) {
+            os << minutes << " min";
+            wrote = true;
+        }
+        if (seconds > 0 || minutes > 0) {
+            if (wrote) os << ' ';
+            os << seconds << " s";
+            wrote = true;
+        }
+        if (millis > 0 || (!minutes && !seconds)) {
+            if (wrote) os << ' ';
+            os << millis << " ms";
+        }
     }
 
     int App::run() {
@@ -45,10 +71,9 @@ namespace cli {
             scanner::ScanStats stats;
             const auto t0 = std::chrono::steady_clock::now();
             scanner.scan(opts_.root_path, store, logger.get(), stats);
-            const auto t1 = std::chrono::steady_clock::now();
-            const auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count();
+            const auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - t0);
 
-            print_stats(std::cout, stats, ms);
+            print_stats(std::cout, stats, elapsed);
             return 0;
 
         } catch (const std::exception& ex) {

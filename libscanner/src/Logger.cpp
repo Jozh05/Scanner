@@ -31,6 +31,6 @@ namespace scanner {
                                 const std::filesystem::path& path) {
         
         std::lock_guard lock(mtx_);
-        out_ << hash << ";" << verdict << ";" << path.generic_string() << '\n';
+        out_ << hash << "\t" << verdict << "\t" << path.generic_string() << '\n';
     }
 }

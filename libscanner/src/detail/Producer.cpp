@@ -23,7 +23,8 @@ namespace scanner::detail {
         if (!is_file)
             return;
         
-        queue_.push(dir_entry.path());
+        auto path = std::filesystem::absolute(dir_entry.path());
+        queue_.push(path);
 
     }
 

@@ -17,7 +17,9 @@ public:
 private:
     std::ostream& print_stats(std::ostream& os,
         const scanner::ScanStats& stats,
-        const int64_t time) const;
+        std::chrono::milliseconds time) const;
+
+    static void print_duration(std::ostream& os, std::chrono::milliseconds ms);
 private:
     Options opts_;
 };
