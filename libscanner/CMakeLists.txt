@@ -9,6 +9,10 @@ add_library(scanner SHARED
     src/detail/Worker.cpp
     src/Scanner.cpp)
 
+if (WIN32)
+  set_target_properties(scanner PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif()
+
 find_path(RAPIDCSV_INCLUDE_DIRS "rapidcsv.h")
 target_include_directories(scanner PRIVATE ${RAPIDCSV_INCLUDE_DIRS})
 target_include_directories(scanner PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

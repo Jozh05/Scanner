@@ -32,6 +32,8 @@ public:
 
 private:
     
+    void preflight_csv(const std::filesystem::path& csv) const;
+
     static bool is_hex32(std::string_view str) noexcept;
     static void to_lower(std::string& str) noexcept;
 

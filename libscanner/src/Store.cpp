@@ -72,9 +72,28 @@ namespace scanner {
         
     }
 
-
+    void Store::preflight_csv(const std::filesystem::path& csv) const {
+        std::error_code ec;
+        std::filesystem::file_status st = std::filesystem::status(csv, ec);
+        if (ec) {
+            throw std::runtime_error("cannot access base CSV \"" + csv.generic_string() + "\": " + ec.message());
+        }
+        if (!std::filesystem::exists(st)) {
+            throw std::runtime_error("base CSV not found: \"" + csv.generic_string() + "\"");
+        }
+        if (!std::filesystem::is_regular_file(st)) {
+            throw std::runtime_error("base CSV is not a regular file: \"" + csv.generic_string() + "\"");
+        }
+    
+        std::ifstream probe(csv, std::ios::in | std::ios::binary);
+        if (!probe.good()) {
+            throw std::runtime_error("cannot open base CSV for reading: \"" + csv.generic_string() + "\"");
+        }
+    }
 
     void Store::load(const std::filesystem::path& path, DuplicatePolicy dupPolicy) {
+        
+        preflight_csv(path);
         
         data_.clear();
 
