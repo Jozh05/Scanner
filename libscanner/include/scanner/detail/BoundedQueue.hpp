@@ -7,7 +7,7 @@ template <typename T>
 class BoundedQueue {
 
 public:
-    explicit BoundedQueue(size_t cap) : capacity_(cap ? cap : 1){}
+    explicit BoundedQueue(size_t cap) : capacity_(cap ? cap : 1024){}
 
     bool push(T val) {
         std::unique_lock<std::mutex> lock(mtx_);
