@@ -4,8 +4,10 @@
 
 namespace scanner {
     
-    Logger::Logger(const std::filesystem::path& file) {
-        out_.open(file, std::ios::out | std::ios::trunc);
+    Logger::Logger(const std::filesystem::path& file, OpenMode mode) {
+        auto flags = std::ios::out |
+                (mode == OpenMode::Append ? std::ios::app : std::ios::trunc);
+        out_.open(file, flags);
         if (!out_)
             throw std::runtime_error("cannot open log file: " + file.generic_string());
     }

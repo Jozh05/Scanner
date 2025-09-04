@@ -9,7 +9,10 @@ namespace scanner {
 class Logger {
 
 public:
-    explicit Logger(const std::filesystem::path& file);
+    
+    enum class OpenMode {Truncate, Append};
+
+    explicit Logger(const std::filesystem::path& file, OpenMode mode = OpenMode::Truncate);
     ~Logger();
 
     Logger(const Logger&) = delete;
