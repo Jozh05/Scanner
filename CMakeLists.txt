@@ -20,4 +20,4 @@ endif()
 
 add_subdirectory(libscanner)
 add_subdirectory(scanner_cli)
-#add_subdirectory(tests)
+add_subdirectory(tests)
