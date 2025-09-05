@@ -156,7 +156,7 @@ TEST(Scanner, RecursesIntoNestedDirectories) {
         if (!s.empty()) lines.push_back(std::move(s));
 
     ASSERT_EQ(lines.size(), 1u);
-    const auto abs_hit = fs::absolute(f_hit).string();
+    const auto abs_hit = fs::absolute(f_hit).generic_string();
     EXPECT_NE(lines[0].find("malware"), std::string::npos);
     EXPECT_NE(lines[0].find(abs_hit),   std::string::npos);
 }
