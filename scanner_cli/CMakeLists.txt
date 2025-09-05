@@ -4,9 +4,6 @@ add_executable(scanner_cli
         src/App.cpp)
 
 if (WIN32)
-  find_package(OpenSSL REQUIRED)
-  target_link_libraries(scanner_cli PRIVATE OpenSSL::Crypto)
-
   add_custom_command(TARGET scanner_cli POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             $<TARGET_FILE:scanner>
